@@ -8,6 +8,11 @@ ARG USE_CN_MIRROR
 
 ENV DEBIAN_FRONTEND="noninteractive"
 
+## Clerk Settings
+
+ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_live_Y2xlcmsucm9iaW5saS5ibG9nJA"
+ENV NEXT_PUBLIC_SERVICE_MODE="server"
+
 RUN \
     # If you want to build docker in China, build with --build-arg USE_CN_MIRROR=true
     if [ "${USE_CN_MIRROR:-false}" = "true" ]; then \
