@@ -27,7 +27,7 @@ jobs:
         include:
           - platform: linux/amd64
             os: debian-latest
-    runs-on: Hetzner
+    runs-on: self-hosted
     name: Build ${{ matrix.platform }} Image
     steps:
       - name: Prepare
@@ -105,7 +105,7 @@ jobs:
   merge:
     name: Merge
     needs: build
-    runs-on: Hetzner
+    runs-on: self-hosted
     steps:
       - name: Checkout base
         uses: actions/checkout@v4
