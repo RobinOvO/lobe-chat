@@ -1,5 +1,4 @@
 name: Publish Database Docker Image
-
 on:
   workflow_dispatch:
   release:
@@ -27,10 +26,8 @@ jobs:
       matrix:
         include:
           - platform: linux/amd64
-            os: ubuntu-latest
-          - platform: linux/arm64
-            os: ubuntu-24.04-arm
-    runs-on: ${{ matrix.os }}
+            os: debian-latest
+    runs-on: Hetzner
     name: Build ${{ matrix.platform }} Image
     steps:
       - name: Prepare
@@ -108,7 +105,7 @@ jobs:
   merge:
     name: Merge
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: Hetzner
     steps:
       - name: Checkout base
         uses: actions/checkout@v4
