@@ -1,4 +1,5 @@
 name: Publish Database Docker Image
+
 on:
   workflow_dispatch:
   release:
@@ -11,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  REGISTRY_IMAGE: robinlii/my-lobe-db
+  REGISTRY_IMAGE: lobehub/lobe-chat-database
   PR_TAG_PREFIX: pr-
 
 jobs:
@@ -26,8 +27,10 @@ jobs:
       matrix:
         include:
           - platform: linux/amd64
-            os: debian-latest
-    runs-on: self-hosted
+            os: ubuntu-latest
+          - platform: linux/arm64
+            os: ubuntu-24.04-arm
+    runs-on: ${{ matrix.os }}
     name: Build ${{ matrix.platform }} Image
     steps:
       - name: Prepare
@@ -105,7 +108,7 @@ jobs:
   merge:
     name: Merge
     needs: build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout base
         uses: actions/checkout@v4
